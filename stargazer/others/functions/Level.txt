@@ -1,0 +1,20 @@
+-	script	LevelUpQuotes	-1,{
+end;
+
+OnInit:
+	setarray .q$,"I have advanced forward!","There's no stopping me now!","Look at me go!","There's more where that came from.","This isn't even my final form!";
+	.num1 = getarraysize(.q$);
+	setarray .maxq$,"I've made it!","I never thought I'd become this strong...","I have reached my final form.";
+	.num2 = getarraysize(.maxq$);
+	setarray .novi$,"Yea, I can change my job!","Wuhuu, job change time!","Not bad, that's was fast!";
+	.num3 = getarraysize(.novi$);
+	end;
+
+OnPCBaseLvUpEvent:
+	if( JobLevel == 10) { .@r = rand(.num3); showscript strcharinfo(0)+" : "+.novi$[.@r]; }
+	if( BaseLevel > 149 && getstatus(SC_ITEMBOOST) == 0 ) { sc_start SC_ITEMBOOST,180000,200; }
+	if( BaseLevel == 175 ) { .@r = rand(.num2); showscript strcharinfo(0)+" : "+.maxq$[.@r]; }
+	// else { .@r = rand(.num1); showscript strcharinfo(0)+" : "+.q$[.@r]; }
+	// if( getstatus(SC_INCREASEAGI) != 1 ) { sc_start SC_INCREASEAGI,30000,10; }
+	end;
+}

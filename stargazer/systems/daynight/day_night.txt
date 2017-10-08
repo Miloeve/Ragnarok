@@ -1,0 +1,38 @@
+gonryun,164,113,5	script	DayNight	1193,{
+	
+OnInit:
+OnTag:
+	if(isday()) {
+		if ($time == 1) {
+		delwaitingroom strnpcinfo(0);
+		waitingroom "Day:"+$day+" Month:"+$month+" Year:"+$year,0;
+		sleep 2000; 
+		goto OnTag;
+		}
+		set $day,$day +1;
+		if ($day == 29) {
+		set $month,$month +1;
+		set $day,$day -28;
+		}
+		if ($month == 13) {
+		set $year,$year +1;
+		set $month,$month -12;
+		}
+		delwaitingroom strnpcinfo(0);
+		waitingroom "Day:"+$day+" Month:"+$month+" Year:"+$year,0;
+		set $time,1;
+		sleep 2000;
+		goto OnTag;
+	}
+		if ($time == 0) {
+		delwaitingroom strnpcinfo(0);
+		waitingroom "Day:"+$day+" Month:"+$month+" Year:"+$year,0;
+		sleep 2000; 
+		goto OnTag;
+		}
+		delwaitingroom strnpcinfo(0);
+		waitingroom "Day:"+$day+" Month:"+$month+" Year:"+$year,0;
+		set $time,0;
+		sleep 2000;
+		goto OnTag;
+}

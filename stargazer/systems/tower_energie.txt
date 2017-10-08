@@ -1,0 +1,8 @@
+prontera,156,717,0	script	Energy Crystal	789,{
+
+
+
+
+
+
+}

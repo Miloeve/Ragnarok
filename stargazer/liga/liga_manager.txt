@@ -1,0 +1,114 @@
+gonryun,154,114,6	script	Adventure Manager	765,{
+
+
+
+	cutin "fly_trock.bmp", 2;
+	mes .name$;
+	mes "Willkommen Abenteurer [^008aff"+strcharinfo(0)+"^000000].";
+	mes "Ich bin hier der Leiter der ^DF7401Abenteuer-Liga^000000.";
+	mes "Was kann ich für dich tun?";
+	next;
+	switch(select(""+.ysign$+" Was ist die ^DF7401Abenteuer-Liga^000000?:"+.ysign$+" Mitglied werden!:"+.nsign$+" Auf wiedersehen.")) {
+	case 1:
+		mes .name$;
+		mes "Die Abenteuer-Liga wurde eins gegründet um Abenteurer besondere und eizigartige Quests zu ermöglichen, die entweder allein oder zusammen absolviert werden müssen.";
+		mes "Allerdings wurde Rune Midgard mehr und mehr von Monstern angegriffen,";
+		mes "weswegen wir seitdem dafür sorgen, dass die Menschen vom Lande(NPC's) und wir Abenteurer sicher in den Städten leben können.";
+		next;
+		mes .name$;
+		mes "Du denkst dir bestimmt was uns das kümmern sollte, was mit den Menschen vom Lande passiert.";
+		mes "Nun! Es ist eine Pflicht als Abenteurerzu Helfen wenn jemand in der Not ist.";
+		mes "Ebenso sind wir auf die Menschen vom Lande angewiesen,";
+		mes "denn ohne Sie gäbe es keinen '^008affInn^000000', '^008affKafra Service^000000', '^008affGildenhäuser^000000' und all die von den Menschen vom Lande(NPC's) geleitete Einrichtungen wären nicht mehr vorhanden.";
+		next;
+		mes .name$;
+		mes "Selbst gewisse 'Items' werden nicht mehr zu erhalten sein,";
+		mes "da sie nur von bestimmten Quests zu erhalten sind, die von den (NPC's) vergeben werden.";
+		next;
+		mes .name$;
+		mes "Also wie Du siehst [^008aff"+strcharinfo(0)+"^000000],";
+		mes "sind wir alle voneinander abhängig um die Welt zu behalten die wir kennen.";
+		next;
+		mes .name$;
+		mes "Das heißt jedesmal wenn irgendwo Hilfe benötigt wird, erhalten die Abenteurer eine Quest die Sie abschließen können.";
+		mes "Je mehr Quests man erledigt hat, umso schwierigere Quests kann man erhalten.";
+		mes "Was wiederrum bedeutet bessere 'Beute'.";
+		mes "Das ist die ^DF7401Abenteuer-Liga^000000!";
+		next;
+		mes .name$;
+		mes "Was möchtest Du noch wissen?";
+		next;
+		switch(select(""+.ysign$+" Wie werde ich Mitglied?:"+.nsign$+" Nein, Danke!")) {		
+		case 1:
+			mes .name$;
+			mes "Zu erst musst Du das ^ff0000Base Level^000000 50 erreicht haben.";
+			mes "Dann musst Du die Anmeldegebühr von ^ff0000250.000^000000z bezahlen.";
+			mes "Danach wird dir eine Quest erteilt die Du erledigen musst.";
+			next;
+			mes .name$;
+			mes "Hast Du die Quest erfolgreich abgeschlossen, bist Du würdig genug um ein Mitglied der Abenteuer-Liga zu sein.";
+			mes "Somit erhälst Du einen 'Liga-Pass' und bist offiziell ein Mitglied.";
+			next;
+			mes .name$;
+			mes "Hier noch einmal was Du brauchst:";
+			mes "==================================";
+			mes "- ^ff0000Base Level 50^000000";
+			mes "- ^ff0000250.000 Zeny^000000";
+			mes "- ^ff0000Absolvieren der ersten Quest.^000000";
+			mes "==================================";
+			next;
+			mes .name$;
+			mes "Was kann ich noch für dich tun?";
+			next;
+			switch(select(""+.ysign$+" Ich möchte Mitglied werden:"+.nsign$+" Nichts, Danke!")) {			
+			case 1:
+				if(BaseLevel >= 50) {
+					mes .name$;
+					mes "";
+					close2;
+					cutin "", 255;
+					end;
+				}
+				mes .name$;
+				mes "Dein ^ff0000Base Level^000000 ist leider noch nicht hoch genug.";
+				mes "Du musst mindestens ^ff0000Base Level^000000 50 erreicht haben.";
+				mes "Komm gerne wieder wenn Du soweit bist.";
+				close2;
+				cutin "", 255;
+				end;
+			case 2:
+				close2;
+				cutin "", 255;
+				end;			
+			}
+			
+		case 2:
+			close2;
+			cutin "", 255;
+			end;
+		}
+		
+	case 2:
+	case 3:
+		mes .name$;
+		mes "Ist es nicht der Grund wieso Du Abenteurer geworden bist?";
+		mes "Die Welt zu entdecken, Monster zu besiegen und immer stärker zu werden?";
+		mes "Dies alles wirst Du hier finden. Alles was ein Abenteurer-Herz begehrt.";
+		next;
+		mes .name$;
+		mes "Komm wieder wenn Du deinen Abenteuergeist gefunden hast.";
+		close2;
+		cutin "", 255;
+		end;
+	}
+	
+OnInit:
+	set .name$,"[^088A08Adventure Manager^000000]";
+	set .ysign$,"[^008aff»^000000]";
+	set .nsign$,"[^ff0000«^000000]";
+//	questinfo 22000, QTYPE_QUEST, 0, Job_Novice;
+//	setquestinfo_level 22000,1,175;
+//	setquestinfo_req 22000,22000,0;
+	end;
+
+}

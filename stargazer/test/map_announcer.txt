@@ -1,0 +1,74 @@
+//===== Immortals-RO Script ==================================
+//= Map Description Announcer
+//===== By: ==================================================
+//= Meroy of Immortals-RO (http://immortalsro.com)
+//===== Current Version: =====================================
+//= 1.0
+//===== Compatible With: =====================================
+//= rAthena Project
+//===== Description: =========================================
+//= Similar to "/where"
+//===== Changelogs: ==========================================
+//= 1.0 First Version
+//===== Additional Comments: =================================
+//= 1.0 Initial Release - [Meroy] 
+//============================================================
+-	script	Map_Des_Announcer	-1,{
+OnInit:
+	
+	setarray .townMaps$,
+		//<mapname>,<Map Nick>,
+		"alberta",      "Alberta",
+		"aldebaran",    "Aldebaran",
+		"amatsu",       "Amatsu, the Land of Destiny",
+		"ayothaya",     "Ayothaya",
+		"bat_room",     "the Battlegrounds Lobby",
+		"brasilis",     "Brasilis",
+		"comodo",       "Comodo, the Beach Town",
+		"dicastes01",   "El Dicastes, the Sapha Capital",
+		"dicastes02",   "Brumbeld Jorhi Forest",
+		"einbech",      "Einbech, the Mining Village",
+		"einbroch",     "Einbroch, the City of Steel",
+		"geffen",       "Geffen, The City of Magic",
+		"gonryun",      "Gonryun, the Hermit Land",
+		"hugel",        "Hugel, the Power Source City",
+		"izlude",       "Izlude Town, Satellite of Prontera",
+		"jawaii",       "Jawaii, the Honeymoon Island",
+		"lighthalzen",  "Lighthalzen, the City-State of Prosperity",
+		"louyang",      "Louyang, the Highland",
+		"xmas",         "Lutie, the Snow Village",	
+		"manuk",        "Manuk",
+		"mid_camp",     "Midgard Expedition Camp",
+		"morocc",       "the Morroc Accident Site",
+		"moscovia",     "Moscovia",
+		"nameless_i",   "Nameless Island",
+		"niflheim",     "Niflheim, Realm of the Dead",
+		"payon",        "Payon Town",
+		"prontera",     "Prontera City, Capital of Rune-Midgard",
+		"rachel",       "Rachel, Capital of Arunafelz, the Study Nation", 
+		"splendide",    "Splendide",
+		"prt_monk",     "the St. Capitolina Abbey",
+		"thor_camp",    "Thor Camp",
+		"veins",        "Veins, the Desert Village",
+		"yuno",         "Yuno, Capital of Schwarzwald Republic",
+		"umbala",       "The Wootan Tribe's Village, Umbala";
+	.size = getarraysize( .townMaps$ );
+	for( .@i = 0; .@i < .size; .@i += 2 )
+		setmapflag .townMaps$[.@i], mf_loadevent;	
+	end;
+
+OnPCLoadMapEvent:
+	if( strcharinfo(3) == @last_map$ )
+		end;
+	for( .@i = 0; .@i < .size; .@i += 2 )
+		if( strcharinfo(3) == .townMaps$[.@i] )
+		{
+			announce "Welcome to "+ .townMaps$[.@i+1] +"",bc_self, 0x00FFFF,FW_NORMAL,16;
+			soundeffect "priest_aspersio.wav",0;
+			cutin ""+.townMaps$[.@i]+"",4;
+			sleep2 5000;
+			cutin "",255;
+			@last_map$ = strcharinfo(3);
+			end;
+		}
+	}

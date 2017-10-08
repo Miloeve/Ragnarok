@@ -1,0 +1,17 @@
+-	script	Guildcheck	-1,{
+	end;
+
+OnPCLoginEvent:
+	query_sql ( "Select `guild_id`,`char_id`,`name` FROM `guild_member` WHERE `account_id` = 'getcharid(3)'",.@gid,.@cid,.@name$);
+	if ( !.@gid ) {
+		set .@cid,getcharid(0);
+		query_sql ( "Update `guild_member` SET `char_id` = '.@cid' WHERE `account_id` = 'getcharid(3)'");
+		query_sql ( "Update `guild_member` SET `name` = '"+strcharinfo(0)+"' WHERE `account_id` = 'getcharid(3)'");
+		query_sql ( "Update `char` SET `guild_id` = '.@gid' WHERE `char_id` = 'getcharid(0)'");
+		dispbottom "du bist in einer gilde.";
+		end;
+	
+	}
+	dispbottom "You are not in a guild.";
+	end;
+}

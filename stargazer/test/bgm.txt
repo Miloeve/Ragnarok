@@ -1,0 +1,6 @@
+gonryun,159,83,0	script	BGM	898,10,10,{
+	end;
+OnTouch:
+	playBGMall "123","gonryun",154,93;
+	end;
+}

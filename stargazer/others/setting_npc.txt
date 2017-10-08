@@ -1,0 +1,208 @@
+gonryun,158,114,5	script	Setting Manager	61,{
+	set .@reset$,"^000000";
+	set .@disabled$,"^BE1C1C";
+	set .@enabled$,"^0DB40D";
+	.bcor$ = "[^008aff»^000000]";
+	.rcor$ = "[^ff0000»^000000]";
+	set .name$,"[^088A08Setting Manager^000000]";
+	
+	mes .name$;
+	mes (gettime(3)>= 6&&gettime(3)<= 12?"Good Morning":(gettime(3)>=13&&gettime(3)<=18?"Good Afternoon":"Good Evening"))+", "+(Sex?"Mr.":"Mrs.")+" ^0000ff"+strcharinfo(0)+"^000000!";
+	mes "Here you can set different login informations.";
+	mes " ";
+UserMenu:	
+	mes "^ff0000Note^000000: These are all account based, not per-character.";
+	mes "^ff0000Note 2^000000: You must relog for them to take effect.";
+	if (#pcloginflag&1)  { set .@st_playeronline$,.@enabled$+"On"+.@reset$; } else { set .@st_playeronline$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&2) { set .@st_serverdate$,.@enabled$+"On"+.@reset$; } else { set .@st_serverdate$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&4) { set .@st_friendonline$,.@enabled$+"On"+.@reset$; } else { set .@st_friendonline$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&8)  { set .@st_chartime$,.@enabled$+"On"+.@reset$; } else { set .@st_chartime$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&16)  { set .@st_gametime$,.@enabled$+"On"+.@reset$; } else { set .@st_gametime$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&32)  { set .@st_langtype$,.@enabled$+"On"+.@reset$; } else { set .@st_langtype$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&64) { set .@st_mvpp$,.@enabled$+"On"+.@reset$; } else { set .@st_mvpp$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&128) { set .@st_gmaster$,.@enabled$+"On"+.@reset$; } else { set .@st_gmaster$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&256) { set .@st_glevel$,.@enabled$+"On"+.@reset$; } else { set .@st_glevel$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&512) { set .@st_gonline$,.@enabled$+"On"+.@reset$; } else { set .@st_gonline$,.@disabled$+"Off"+.@reset$; }
+	if (#pcloginflag&1024) { set .@st_gcastle$,.@enabled$+"On"+.@reset$; } else { set .@st_gcastle$,.@disabled$+"Off"+.@reset$; }
+	next;
+	switch(select(
+					.bcor$+" Server Informations"
+					,.bcor$+" Character Informations"
+					,.bcor$+" Guild Informations"
+					,.rcor$+" Cancel")) {
+		case 1:
+				mes .name$;
+				mes "Please choose which settings you want to switch on/off.";
+				next;
+				switch(select(
+								.bcor$+" Current Player Online ["+.@st_playeronline$+"]" 
+								,.bcor$+" Server Date ["+.@st_serverdate$+"]"
+								,.rcor$+" Back.")) {
+								
+						case 1:
+							mes .name$;
+							mes "Show 'Current Player Online' is currently "+.@st_playeronline$+" ";
+							mes "^ff0000Desc^000000: Shows the currently players online.";
+							next;
+							switch(select("Toggle:Back")){
+								case 1:
+								if (#pcloginflag&1) { set #pcloginflag, #pcloginflag &~ 1; } else { set #pcloginflag, #pcloginflag | 1; }
+								break;
+								case 2:	break;
+								}
+							break;
+						case 2:
+							mes .name$;
+							mes "Show 'Server Date' is currently "+.@st_serverdate$+" ";
+							mes "^ff0000Desc^000000: Shows the MvP-Points already collected.";
+							next;
+							switch(select("Toggle:Back")){
+								case 1:
+									if (#pcloginflag&2) { set #pcloginflag, #pcloginflag &~ 2; } else { set #pcloginflag, #pcloginflag | 2; }
+									break;
+								case 2:	break;
+								}
+							break;
+						case 3:
+							break;
+						}
+				goto UserMenu;									
+		case 2:
+				mes .name$;
+				mes "Please choose which settings you want to switch on/off.";	
+				next;				
+				switch(select(
+								.bcor$+" Friends Online ["+.@st_friendonline$+"]"
+								,.bcor$+" Char Time ["+.@st_chartime$+"]"
+								,.bcor$+" Game Time ["+.@st_gametime$+"]"
+								,.bcor$+" Language ["+.@st_langtype$+"]"
+								,.bcor$+" MvP Points ["+.@st_mvpp$+"]")) {
+						case 1:
+								mes .name$;
+								mes "Show 'Friends Online' is currently "+.@st_friendonline$+" ";
+								mes "^ff0000Desc^000000: Shows how much friends current online.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&4) { set #pcloginflag, #pcloginflag &~ 4; } else { set #pcloginflag, #pcloginflag | 4; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 2:
+								mes .name$;
+								mes "Show 'Char Time' is currently "+.@st_chartime$+" ";
+								mes "^ff0000Desc^000000: Shows your played time with the logged in charakter.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&8) { set #pcloginflag, #pcloginflag &~ 8; } else { set #pcloginflag, #pcloginflag | 8; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 3:
+								mes .name$;
+								mes "Show 'Game Time' is currently "+.@st_gametime$+" ";
+								mes "^ff0000Desc^000000: Shows your played time for the whole account.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&16) { set #pcloginflag, #pcloginflag &~ 16; } else { set #pcloginflag, #pcloginflag | 16; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 4:
+								mes .name$;
+								mes "Show 'Language' is currently "+.@st_langtype$+" ";
+								mes "^ff0000Desc^000000: Shows your selected language.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&32) { set #pcloginflag, #pcloginflag &~ 32; } else { set #pcloginflag, #pcloginflag | 32; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 5:
+								mes .name$;
+								mes "Show 'MvP-Points' is currently "+.@st_mvpp$+" ";
+								mes "^ff0000Desc^000000: Shows the MvP-Points already collected.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&64) { set #pcloginflag, #pcloginflag &~ 64; } else { set #pcloginflag, #pcloginflag | 64; }
+										break;
+									case 2:	break;
+									}
+								break;
+						}
+				goto UserMenu;
+		
+		
+		
+		
+		case 3:
+				mes .name$;
+				mes "Please choose which settings you want to switch on/off.";				
+				next;
+				switch(select(
+								.bcor$+" Guild Master ["+.@st_gmaster$+"]"
+								,.bcor$+" Guild Level ["+.@st_glevel$+"]"
+								,.bcor$+" Guild Member Online ["+.@st_gonline$+"]"
+								,.bcor$+" Castle Owned ["+.@st_gcastle$+"]")) {
+						case 1:
+								mes .name$;
+								mes "Show 'Guild Master' is currently "+.@st_gmaster$+" ";
+								mes "^ff0000Desc^000000: Shows your current Guild Leader.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&128) { set #pcloginflag, #pcloginflag &~ 128; } else { set #pcloginflag, #pcloginflag | 128; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 2:
+								mes .name$;
+								mes "Show 'Guild Level' is currently "+.@st_glevel$+" ";
+								mes "^ff0000Desc^000000: Shows your current Guild Level.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&256) { set #pcloginflag, #pcloginflag &~ 256; } else { set #pcloginflag, #pcloginflag | 256; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 3:
+								mes .name$;
+								mes "Show 'Guild Member Online' is currently "+.@st_gmaster$+" ";
+								mes "^ff0000Desc^000000: Shows how much Guild Members current online.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&512) { set #pcloginflag, #pcloginflag &~ 512; } else { set #pcloginflag, #pcloginflag | 512; }
+										break;
+									case 2:	break;
+									}
+								break;
+						case 4:
+								mes .name$;
+								mes "Show 'Castle Owned' is currently "+.@st_gcastle$+" ";
+								mes "^ff0000Desc^000000: Shows if your guild has a castle.";
+								next;
+								switch(select("Toggle:Back")){
+									case 1:
+										if (#pcloginflag&1024) { set #pcloginflag, #pcloginflag &~ 1024; } else { set #pcloginflag, #pcloginflag | 1024; }
+										break;
+									case 2:	break;
+									}
+								break;
+						}
+				goto UserMenu;
+		case 4:
+			end;
+		}
+}

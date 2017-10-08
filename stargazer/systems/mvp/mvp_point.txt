@@ -1,0 +1,27 @@
+-	script	MvPPoint	-1,{
+	end;
+
+OnNPCKillEvent:
+if ( getmonsterinfo( killedrid, MOB_MVPEXP ) ) {
+    if ( getcharid(1) ) {
+        getpartymember getcharid(1), 1;
+        getpartymember getcharid(1), 2;
+        getmapxy(.@mapname$,.@mapx,.@mapy,UNITTYPE_PC);
+            for ( .@i = 0; .@i < $@partymembercount; .@i++ ) {
+                if ( !isloggedin( $@partymemberaid[.@i], $@partymembercid[.@i] ) ||  // what happens if someone in the party member is offline =/
+                    strcharinfo(3,$@partymembercid[.@i]) != .@mapname$ || // If the party member is not on the same map of the killer
+                    checkidle(rid2name($@partymemberaid[.@i])) > 30 ) // If player is idle for 30 seconds
+                    continue;
+        getitem 501, 2, $@partymemberaid[.@i];
+        getitem 502, 2, $@partymemberaid[.@i];
+        }
+        //announce "Wow! A party named [ "+ strcharinfo(1) +" ] has killed "+ getmonsterinfo( killedrid, MOB_NAME ) +" at "+ strcharinfo(3) +"! Awesome work guys!",bc_all,0x6666CC;
+    }
+    else {
+        getitem 501,2;
+        getitem 502,2;
+        //announce "Amazing! A lone wolf named [ "+ strcharinfo(0) +" ] has killed "+ getmonsterinfo( killedrid, MOB_NAME ) +" himself at "+ strcharinfo(3) +"! Reckless, but still, good work!",bc_all,0x6666CC;
+    }
+}
+end;
+}

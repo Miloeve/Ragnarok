@@ -1,0 +1,166 @@
+-	script	LoginInfo	-1,{
+	end;
+	
+OnInit:
+deletearray .castle$, getarraysize( .castle$ );	//- prevent duplicate
+setarray .castle$, "Neuschwanstein",	"Hohenschwangau",	"Nuernberg",	"Wuerzburg",	"Rothenburg",
+				"Repherion",		"Eeyolbriggar",		"Yesnelph",		"Bergel",		"Mersetzdeitz",
+				"Bright Arbor",		"Scarlet Palace",	"Holy Shadow",	"Sacred Altar",	"Bamboo Grove Hill",
+				"Kriemhild",		"Swanhild",			"Fadhgridh",	"Skoegul",		"Gondul",
+				"Earth",			"Air",				"Water",		"Fire",			"Himinn",
+				"Andlangr",			"Viblainn",			"Hljod",		"Skidbladnir",	"Mardol",
+				"Cyr",				"Horn",				"Gefn",			"Bandis";
+end;
+OnPCLoginEvent:
+	// GUILD Settings
+			query_sql( "SELECT `master`, `guild_lv` FROM `guild` WHERE `guild_id` = '"+getcharid(2)+"'",.@master$, .@guild_lv );
+			// Castle
+			.@c = query_sql( "SELECT `castle_id` FROM `guild_castle` WHERE `guild_id` = '"+getcharid(2)+"'", .@castle_id );
+			for( .@i = 0; .@i < .@c; .@i++ )
+			.@cast_owned$ = .@cast_owned$ + .castle$[ .@castle_id[ .@i ] ] + ( .@i == .@c -1 ? "" : ", " );
+			// Members
+			query_sql( "SELECT COUNT(`online`),`char_id`,`account_id`,`name` FROM `char` WHERE `char_id` IN ( SELECT `guild_id` FROM `guild_member` WHERE `char_id`='"+getcharid(2)+"' )",.@count,.@char_id,.@account_id,.@name$ );
+			for( .@i = 0; .@i < .@count; .@i++ )
+			.@member = .@member+(.@char_id[.@i]);
+
+			
+	// Exp Settings
+	set (.@viprate,getbattleflag("vip_base_exp_increase"));
+	set (.@vipdrate,getbattleflag("vip_drop_increase"));
+	set (.@rate,getbattleflag("base_exp_rate"));
+	set (.@drate,getbattleflag("item_rate_common"));
+	// Language Settings
+	if (#langtype == 0) set .@lang$,"English";
+	if (#langtype == 3) set .@lang$,"Deutsch";	
+	// END Settings
+	
+	if (vip_status(1)) {
+		set .@status1,getstatus(SC_EXPBOOST,1);
+		set .@status2,getstatus(SC_JEXPBOOST,1);
+		set .@status3,getstatus(SC_ITEMBOOST,1);
+		set .@exp,.@rate+.@viprate+.@status1;
+		set .@drop,.@drate+.@vipdrate+.@status3;
+		dispbottom "==================================================================";
+		dispbottom "Account Status: VIP";
+		dispbottom "EXP Rate: "+.@exp+"% (Server: "+.@drate+"% + Premium: "+.@viprate+"% + Base|Job Manual: "+.@status1+"%|"+.@status2+"%)";
+		dispbottom "Drop Rate: "+.@drop+"% (Server: "+.@drate+"% + Premium: "+.@vipdrate+"% + BubbleGum : "+.@status3+"%)";
+		dispbottom "VIP expires in: "+callfunc("Time2Str",vip_status(2))+"";
+		dispbottom "==================================================================";
+		if(#pcloginflag&1 || #pcloginflag&2) {
+		dispbottom "Server Informations:";
+		}
+		if(#pcloginflag&1) {
+		dispbottom "- Current users online: ["+getusers(1)+"]";
+		}
+		if(#pcloginflag&8) {
+		dispbottom "- Selected language: "+.@lang$+" ";
+		}
+		if(#pcloginflag&16) {
+		dispbottom "- MvP-Points earned: "+mvpp+" ";
+		}
+		if(#pcloginflag&32) {
+		dispbottom "- Server date: Day:"+$day+" Month:"+$month+" Year:"+$year+" ";
+		}
+		if(#pcloginflag&2) {
+		set gs_chartime,@gs_chartime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+		set .@time,gs_chartime;
+		set .@d,.@time / 86400 % 7;
+		set .@h,.@time / 3600 % 24;
+		set .@m,.@time / 60 % 60;
+		set .@s,.@time % 60;
+		dispbottom "- Played time as "+strcharinfo(0)+" ["+jobname(Class)+"]: "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+		}
+		if(#pcloginflag&4) {
+		set gs_gametime,@gs_gametime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+		set .@time,gs_gametime;
+		set .@d,.@time / 86400 % 7;
+		set .@h,.@time / 3600 % 24;
+		set .@m,.@time / 60 % 60;
+		set .@s,.@time % 60;
+		dispbottom "- Total time played: "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+		}
+		end;
+	}
+		// NON VIP Message
+		set .@status1,getstatus(SC_EXPBOOST,1);
+		set .@status2,getstatus(SC_JEXPBOOST,1);
+		set .@status3,getstatus(SC_ITEMBOOST,1);
+		set .@exp,.@rate+.@status1;
+		set .@drop,.@drate+.@status3;
+		dispbottom "==================================================================",0x008aff;
+		dispbottom "Account Status: Normal";
+		dispbottom "EXP Rate: "+.@exp+"% (Server: "+.@drate+"% + Premium: 0% + Base|Job Manual: "+.@status1+"%|"+.@status2+"%)";
+		dispbottom "Drop Rate: "+.@drop+"% (Server: "+.@drate+"% + Premium: 0% + BubbleGum : "+.@status3+"%)";
+		dispbottom "==================================================================";
+	// SERVER INFORMATIONS 
+		if(#pcloginflag&1 || #pcloginflag&2) {
+		dispbottom "Server Informations:";
+		}
+		if(#pcloginflag&1) {
+		dispbottom "- Current users online: ["+getusers(1)+"]";
+		}
+		if(#pcloginflag&2) {
+		dispbottom "- Server date: Day:"+$day+" Month:"+$month+" Year:"+$year+" ";
+		}
+		
+		
+	// CHAR INFORMATIONS 	
+		if(#pcloginflag&4 || #pcloginflag&8 || #pcloginflag&16 || #pcloginflag&32 || #pcloginflag&64 ) {
+		dispbottom "Character Informations:";
+		}
+		if(#pcloginflag&4) {
+		query_sql( "SELECT COUNT(`char_id`),`char_id`,`account_id`,`name` FROM `char` WHERE `char_id` IN ( SELECT `friend_id` FROM `friends` WHERE `char_id`='"+getcharid(0)+"' )",.@total,.@char_id,.@account_id,.@name$ );
+		if(.@total) {
+			for( .@i = 0; .@i < .@total; .@i++ )
+			.@olcount = .@olcount +isloggedin( .@account_id[.@i],.@char_id[.@i] );
+			dispbottom "- Friends online: ["+.@olcount+"/"+.@total+"]";
+			}
+			else {
+			dispbottom "- Friends online: [0]";
+			}
+		}
+		if(#pcloginflag&64) {
+		dispbottom "- MvP-Points earned: ["+mvpp+"] ";
+		}
+		if(#pcloginflag&32) {
+		dispbottom "- Selected language: ["+.@lang$+"] ";
+		}
+		if(#pcloginflag&8) {
+		set gs_chartime,@gs_chartime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+		set .@time,gs_chartime;
+		set .@d,.@time / 86400 % 7;
+		set .@h,.@time / 3600 % 24;
+		set .@m,.@time / 60 % 60;
+		set .@s,.@time % 60;
+		dispbottom "- Played time as "+strcharinfo(0)+" ["+jobname(Class)+"]: "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+		}
+		if(#pcloginflag&16) {
+		set gs_gametime,@gs_gametime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+		set .@time,gs_gametime;
+		set .@d,.@time / 86400 % 7;
+		set .@h,.@time / 3600 % 24;
+		set .@m,.@time / 60 % 60;
+		set .@s,.@time % 60;
+		dispbottom "- Total time played: "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+		}
+		
+		
+	// GUILD INFORMATIONS 
+		if(#pcloginflag&128 || #pcloginflag&256 || #pcloginflag&512 || #pcloginflag&1024 ) {
+		dispbottom "==================================================================";
+		dispbottom "Guild Informations:";
+		}
+		if(#pcloginflag&128) {
+		dispbottom "- Guild Master: "+.@master$+" ";
+		}
+		if(#pcloginflag&256) {
+		dispbottom "- Guild Level: "+.@guild_lv+" ";
+		}
+		if(#pcloginflag&512) {
+		dispbottom "- Members Online: "+.@member+" ";
+		}
+		if(#pcloginflag&1024) {
+		dispbottom "- Castle Owned: "+ ( .@c ? .@cast_owned$ : "None" ) +" ";
+		}
+		end;
+}

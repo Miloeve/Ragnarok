@@ -1,0 +1,32 @@
+function	script	vip_system	{
+	.@viplevel = getarg( 0,0 );
+	.@itemid = getarg( 1,0 );
+	.bcor$ = "[^008aff»^000000]";									// Option Button Symbol;
+	.rcor$ = "[^ff0000»^000000]";	
+	mes "[^088A08Regan^000000]";
+	mes (gettime(3)>= 6&&gettime(3)<= 12?"Good Morning":(gettime(3)>=13&&gettime(3)<=18?"Good Afternoon":"Good Evening"))+", ^008aff"+strcharinfo(0)+"^000000 !";
+	if (vip_status(1)) {
+		mes "^008affYour VIP access will expire on";
+		mes "" + callfunc("Time2Str",vip_status(2)) + ".^000000";
+		mes " ";		
+	}
+	mes "How can I help?";
+	next;
+	switch(select(""+((vip_status(1))?""+.bcor$+" I want to extend my time ^008affVIP^000000.":""+.bcor$+" I wish to become a ^008affVIP^000000 player."),""+.rcor$+" I do not want anything.")) {
+	case 1:
+		vip_time (.@viplevel * 1440);
+		delitem .@itemid,1;
+		announce "Regan: Congratulations you got "+.@viplevel+" days VIP.",bc_self;
+		close2;	
+	case 2:
+		close;
+	}
+}
+
+
+function	script	Copper_Coin	{
+	set .@zeny,rand(1,30);
+	zeny += zeny+.@zeny;
+	dispbottom "You earned "+.@zeny+" Zeny.";
+	end;
+}

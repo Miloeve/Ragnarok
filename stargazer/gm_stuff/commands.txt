@@ -1,0 +1,62 @@
+-	script	GameMaster Service	-1,{
+	end;
+
+OnInit:
+	set .name$,"[^088A08GameMaster Service^000000]";
+	set .ysign$,"[^008aff»^000000]";
+	set .nsign$,"[^ff0000«^000000]";
+	bindatcmd "gmhelp",strnpcinfo(3) + "::OnGMHelp",99;
+	end;
+
+OnGMHelp:
+	mes .name$;
+	mes (gettime(3)>= 6&&gettime(3)<= 12?"Good Morning":(gettime(3)>=13&&gettime(3)<=18?"Good Afternoon":"Good Evening"))+", "+(Sex?"Mr.":"Mrs.")+" ^0000ff"+strcharinfo(0)+"^000000!";
+	mes "What can I do for you?";
+	next;
+	menu 	""+.ysign$+" Change Ingame Time.",M_IGTime,
+			""+.nsign$+" Nothing.",M_End;
+
+	
+	
+	
+M_IGTime:
+	mes .name$;
+	mes "Hello "+(Sex?"Mr.":"Mrs.")+" ^0000ff"+strcharinfo(0)+"^000000";
+	mes "What can I do for you?";
+	next;
+	switch(select(""+.ysign$+" Time Reset.:"+.nsign$+" Back.")) {
+	case 1:
+OnNew:
+		mes .name$;
+		mes "What 'day' would you like to set?";
+		input $day;
+		next;
+		mes .name$;
+		mes "What 'month' would you like to set?";
+		input $month;
+		next;
+		mes .name$;
+		mes "What 'year' would you like to set?";
+		input $year;
+		next;
+		mes .name$;
+		mes "The ingame time is then";
+		mes "Day:"+$day+" Month:"+$month+" Year:"+$year;
+		mes "It is right?";
+		next;
+		switch(select(""+.ysign$+" No.:"+.ysign$+" Yes.:"+.nsign$+" Yes and back to menu.")) {
+		case 1:
+			goto OnNew;
+		case 2:
+			close;
+		case 3:
+			goto OnGMHelp;
+		}
+	case 2:
+		goto OnGMHelp;
+	}
+
+	
+M_End:
+	close;
+}

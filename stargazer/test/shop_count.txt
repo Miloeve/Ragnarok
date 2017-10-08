@@ -1,0 +1,5 @@
+prontera,154,166,6	script	Shop Counter	897,{
+	query_sql ("Select count(`id`) FROM `vendings` WHERE `map` = 'prontera' ",.id);
+	mes " "+.id+" ";
+	close;
+}

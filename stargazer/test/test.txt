@@ -1,0 +1,38 @@
+gonryun,160,107,5	script	Female	789,{
+if (#voice == 1) {
+	soundeffect "FemaleGreeting1.wav",0;
+	}
+	mes "hi";
+	mes "voice on?";
+	next;
+	switch(prompt("yes:no")) {
+	case 1:
+		set #voice,1;
+		mes "voice on.";
+		close2;
+		if (#voice == 1) {
+		soundeffect "Woman-Goodbye.wav",0;
+		}
+		end;
+	case 2:
+		set #voice,0;
+		mes "voice off.";
+		close2;
+				if (#voice == 1) {
+		soundeffect "Woman-Goodbye.wav",0;
+		}
+		end;
+	}
+	soundeffect "Woman-Goodbye.wav",0;
+	end;
+}
+
+gonryun,157,107,5	script	Male	788,{
+
+	soundeffect "FemaleGreeting1.wav",0;
+	mes "blaa";
+	close2;
+	soundeffect "Woman-Goodbye.wav",0;
+	end;
+
+}

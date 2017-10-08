@@ -1,0 +1,10 @@
+gonryun,160,108,5	script	Spawning	875,{
+
+	progressbar "0xff0000",5;
+	monster "gonryun",160,103,"Bheg",1721,1;
+	atcommand "!noks";
+	end;
+
+
+
+}

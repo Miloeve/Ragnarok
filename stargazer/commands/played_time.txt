@@ -1,0 +1,45 @@
+-	script	GameTime	-1,{
+OnInit:
+   bindatcmd("gametime",strnpcinfo(3) + "::OnGameTime");
+   bindatcmd("playtime",strnpcinfo(3) + "::OnPlayTime");
+   bindatcmd("chartime",strnpcinfo(3) + "::OnCharTime");
+   end;
+OnPlayTime:
+   set .@time,(gettimetick(2) - @gs_playtime);
+   set .@h,.@time / 3600;
+   set .@m,.@time / 60 % 60;
+   set .@s,.@time % 60;
+   dispbottom "You have played "+.@h+"h "+.@m+"m and "+.@s+"s.";
+   end;
+
+OnCharTime:
+   set gs_chartime,@gs_chartime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+   set .@time,gs_chartime;
+   set .@d,.@time / 86400 % 7;
+   set .@h,.@time / 3600 % 24;
+   set .@m,.@time / 60 % 60;
+   set .@s,.@time % 60;
+   dispbottom "You have played with your "+jobname(Class)+": "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+   end;
+   
+OnGameTime:        
+   set gs_gametime,@gs_gametime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+   set .@time,gs_gametime;
+   set .@d,.@time / 86400 % 7;
+   set .@h,.@time / 3600 % 24;
+   set .@m,.@time / 60 % 60;
+   set .@s,.@time % 60;
+   dispbottom "You have played "+.@d+"d "+.@h+"h "+.@m+"m and "+.@s+"s total.";
+   end;
+   
+OnPCLoginEvent:
+	set @gs_playtime,gettimetick(2);
+	set @gs_gametime_t,gs_gametime;
+	set @gs_chartime_t,gs_chartime;
+	end;
+   
+OnPCLogoutEvent:
+   set gs_gametime,@gs_gametime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+   set gs_chartime,@gs_chartime_t+(gettimetick(2) - @gs_playtime); //Save GameTime total
+   end;
+}

@@ -1,0 +1,14 @@
+gonryun,152,120,5	script	Atcommandtest	888,{
+
+	mes "Willst command?";
+	set #ja,1;
+	end;
+	
+OnPcLoginEvent:
+if (#ja >= 1) {
+atcommand "!item 4134";
+end;
+
+}
+end;
+}

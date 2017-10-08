@@ -1,0 +1,51 @@
+-	script	HelpMessage	-1,{
+	end;
+
+OnPCJobLvUpEvent:
+	if (Upper == 1) {
+		if (JobLevel == 10 ) {
+			if( Class == Job_Novice_High && (ADVJOB == Job_Lord_Knight || ADVJOB == Job_Paladin )) {
+				announce "[Valkyrie] Congratulation to 'Job Level' 10!",bc_self;
+				sleep2 2000;
+				announce "[Valkyrie] I will bless you with some energy what able you to change direktly to your job.",bc_self;
+				sleep2 5000;
+				skill "NV_TRICKDEAD",0,SKILL_PERM;
+				if ( getskilllv(NV_BASIC) == 10) {
+				jobchange Job_Swordman_High;
+				skill "SM_MOVINGRECOVERY",1,SKILL_PERM;
+				skill "SM_FATALBLOW",1,SKILL_PERM;
+				skill "SM_AUTOBERSERK",1,SKILL_PERM;
+				announce "[Valkyrie] I wish you good luck "+strcharinfo(0)+".",bc_self;
+				end;
+				}
+				atcommand "!skillall";
+				jobchange Job_Swordman_High;
+				skill "SM_MOVINGRECOVERY",1,SKILL_PERM;
+				skill "SM_FATALBLOW",1,SKILL_PERM;
+				skill "SM_AUTOBERSERK",1,SKILL_PERM;
+				announce "[Valkyrie] I wish you good luck "+strcharinfo(0)+".",bc_self;
+				end;
+			}
+		}
+	}
+	
+	if (JobLevel == 10 ) {
+		if ( Class == Job_Novice) {
+			announce "[Valkyrie] Congratulation to 'Job Level' 10!",bc_self;
+			sleep2 2000;
+			announce "[Valkyrie] You are now able to change your job !",bc_self;
+			mes "Please choose a job you want to change.";
+			switch(select(
+							"Swordman"
+							,"Cancel")) {
+			case 1:
+				mes "Bla.";
+				close;
+			case 2:
+				close;
+			}
+			end;
+		}
+	}
+	end;
+}
