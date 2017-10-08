@@ -1,0 +1,435 @@
+// BATTLE CONF
+
+// Should the target be able of dodging damage by snapping away to the edge of the screen?
+// Official behavior is "no"
+snap_dodge: yes
+
+// CLIENT CONF
+
+// Show rAthena version to users when the login?
+display_version: no
+
+// When a player teleports, changes maps, or logs in, will they face the direction they were facing before warped?
+// Official: Disabled, players always face North.
+spawn_direction: yes
+
+// DROPS CONF
+
+// How long does it take for an item to disappear from the floor after it is dropped? (in milliseconds)
+flooritem_lifetime: 120000
+
+// Item drop rates (Note 2)
+
+// The rate the common items are dropped (Items that are in the ETC tab, besides card)
+item_rate_common: 300
+item_rate_common_boss: 100
+item_rate_common_mvp: 100
+item_drop_common_min: 1
+item_drop_common_max: 10000
+
+// The rate healing items are dropped (items that restore HP or SP)
+item_rate_heal: 300
+item_rate_heal_boss: 100
+item_rate_heal_mvp: 100
+item_drop_heal_min: 1
+item_drop_heal_max: 10000
+
+// The rate at which usable items (in the item tab) other then healing items are dropped.
+item_rate_use: 300
+item_rate_use_boss: 100
+item_rate_use_mvp: 100
+item_drop_use_min: 1
+item_drop_use_max: 10000
+
+// The rate at which equipment is dropped.
+item_rate_equip: 300
+item_rate_equip_boss: 100
+item_rate_equip_mvp: 100
+item_drop_equip_min: 1
+item_drop_equip_max: 10000
+
+// The rate at which cards are dropped
+item_rate_card: 500
+item_rate_card_boss: 300
+item_rate_card_mvp: 100
+item_drop_card_min: 1
+item_drop_card_max: 10000
+
+// The rate adjustment for the MVP items that the MVP gets directly in their inventory
+// Mode: 0 - official order, 1 - random order, 2 - all items
+item_rate_mvp: 100
+item_drop_mvp_min: 1
+item_drop_mvp_max: 10000
+item_drop_mvp_mode: 0
+
+// The rate adjustment for card-granted item drops.
+item_rate_adddrop: 300
+item_drop_add_min: 1
+item_drop_add_max: 10000
+
+// Rate adjustment for Treasure Box drops (these override all other modifiers)
+item_rate_treasure: 100
+item_drop_treasure_min: 1
+item_drop_treasure_max: 10000
+
+// Make broadcast ** Player1 won Pupa's Pupa Card (chance 0.01%) ***
+// This can be set to any value between 0~10000.
+// Note: It also announces STEAL skill usage with rare items
+// 0 = don't show announces at all
+// 1 = show announces for 0.01% drop chance items
+// 333 = show announces for 3.33% or lower drop chance items
+// 10000 = show announces for all items
+rare_drop_announce: 3
+
+
+// EXP CONF
+// Rate at which exp. is given. (Note 2)
+base_exp_rate: 300
+
+// Rate at which job exp. is given. (Note 2)
+job_exp_rate: 300
+
+// MVP bonus exp rate. (Note 2)
+mvp_exp_rate: 100
+
+// Rate of base/job exp given by NPCs. (Note 2)
+quest_exp_rate: 300
+
+// PVP exp.  Do players get exp in PvP maps
+// (Note: NOT exp from players, but from normal leveling)
+pvp_exp: no
+
+// Will display zeny earned (from mobs, trades, etc) (Note 1)
+disp_zeny: yes
+
+// GUILD CONF
+
+// Maximum castles one guild can own (0 = unlimited)
+guild_max_castles: 1
+
+// Can the 'Glory of Guild' skill be learnt in the Guild window,
+// and does changing emblems require it? (Note 1)
+// P.S: This skill is not implemented on official servers
+require_glory_guild: yes
+
+// Only guild master can accept alliance?
+// Default: no
+guild_alliance_onlygm: yes
+
+
+// HOMUNCULUS CONF
+
+// The rate a homunculus will get friendly by feeding it. (Note 2)
+homunculus_friendly_rate: 300
+
+
+// ITEMS CONF
+
+// Tax to apply to all vending transactions (eg: 10000 = 100%, 50 = 0.50%)
+// When a tax is applied, the item's full price is charged to the buyer, but
+// the vender will not get the whole price paid (they get 100% - this tax).
+vending_tax: 0
+
+// Do produced items have the maker's name on them? (Note 3)
+// 0x01: Produced Weapons
+// 0x02: Produced Potions
+// 0x04: Produced Arrows
+// 0x08: Produced Holy Water/Ancilla
+// 0x10: Produced Deadly Potions
+// 0x80: Other produced items.
+produce_item_name_input: 0x13
+
+// Can any player equip any item regardless of the gender restrictions
+// NOTE: Wedding Rings and Whips/Musical Instruments will check gender regardless of setting.
+ignore_items_gender: no
+
+// How much time must pass between item uses?
+// Only affects the delay between using items, prevents healing item abuse. Recommended ~500 ms
+// On officials this is 0, but it's set to 100ms as a measure against bots/macros.
+item_use_interval: 500
+
+// How much time must pass between cash food uses? Default: 60000 (1 min)
+cashfood_use_interval: 60000
+
+// Required level of bNoMagicDamage before Status Changes are blocked (Golden Thief Bug card).
+// For example, if left at 50. An item can give bNoMagicDamage,40;
+// which reduces magic damage by 40%, but does not blocks status changes.
+gtb_sc_immunity: 99
+
+// Set default bound type for item_flag &8 (see db/[pre-]re/item_flag.txt
+// 0 - None
+// 1 - Account
+// 2 - Guild
+// 3 - Party
+// 4 - Character
+default_bind_on_equip: 4
+
+// Allow selling of bound items as Itemshop currency?
+// no = Bound items are unable to be sold at Itemshops
+// yes = Bound items are able to be sold at Itemshops
+allow_bound_sell: no
+
+// Turn on event refine chance (see db/{pre-}re/refine_db.yml)
+// no = normal refine chances in effect (official/default value)
+// yes = event refine chances in effect
+event_refine_chance: no
+
+
+
+// MISC CONF
+
+// Day and Night Settings
+day_duration: 14400000
+night_duration: 7200000
+
+// Allow autotrade only in maps with autotrade flag?
+// Set this to "no" to allow autotrade where no "autotrade" mapflag is set.
+// Set this to "yes" to only allow autotrade on maps with "autotrade" mapflag.
+at_mapflag: yes
+
+// Set this to the amount of minutes autotrade chars will be kicked from the server.
+at_timeout: 0
+
+// Whether or not gaining and loosing of cash points is displayed (Note 1).
+// Default: no
+cashshop_show_points: yes
+
+// Is item's price at item/point shop discountable?
+// 0 = No (Default)
+// 1 = Item shops
+// 2 = Point shops
+// 3 = Item & point shops
+discount_item_point_shop: 3
+
+
+// MONSTER CONF
+
+// Respawn rate of monsters on a map. 50 would make mobs respawn twice as fast (half delay time) (Note 2)
+//Note: This does not affects mobs with immediate respawn (most normal mobs)
+mob_spawn_delay: 100
+plant_spawn_delay: 20
+boss_spawn_delay: 100
+
+// Should mobs not spawn within the viewing range of players?
+// 0 is disabled, otherwise it is the number of retries before giving up 
+// and spawning the mob within player-view anyway, unless the max (100) is used,
+// in which case the mob will not be spawned, and it'll be retried again in
+// 5 seconds.
+// NOTE: This has no effect on mobs that always spawn on the very same cell
+// (like ant eggs) except if you set it to the max.
+no_spawn_on_player: 1
+
+// Display some mob info next to their name? (add as needed)
+// (does not works on guardian or Emperium)
+// 1: Display mob HP (Hp/MaxHp format)
+// 2: Display mob HP (Percent of full life format)
+// 4: Display mob's level
+show_mob_info: 4
+
+// Delay before the MVP tomb is spawned.
+// Default: 9 seconds
+mvp_tomb_delay: 300000
+
+// Should HP bars be shown for monsters?
+// 2012-04-04aRagexeRE or higher client required.
+//monster_hp_bars_info: yes
+// 0 = no
+// 1 = Only show if damaged
+// 2 = Shows to everyone who sees the monster
+monster_hp_bars_info: 2
+
+// Time in milliseconds to activate protection against Kill Steal
+// Set to 0 to disable it.
+// If this is activated and a player is using @noks, damage from others players (KS) not in the party
+// will be reduced to 0.
+ksprotection: 10000
+
+// PARTY CONF
+
+// Method of distribution when item party share is enabled in a party:
+// 
+// 0: Normal (item goes to a random party member)
+// 1: Item Share is disabled for non-mob drops (player/pet drops)
+// 2: Round Robin (items are distributed evenly and in order among members)
+// 3: 1+2
+party_item_share_type: 3
+
+// Give additional experience bonus per party-member involved on even-share parties (excluding yourself)?
+// ex. If set to 10, an even-share party of 5 people will receive +40% exp (4 members * 10% exp):
+//     140% party experience in total, so each member receives 140%/5 = 28% exp (instead of 20%).
+party_even_share_bonus: 100
+
+// Display party name regardless if player is in a guild.
+// Official servers do not display party name unless the user is in a guild. (Note 1)
+display_party_name: yes
+
+
+// PET CONF
+
+// The rate a pet will get friendly by feeding it. (Note 2)
+pet_friendly_rate: 300
+
+// When the master attacks a monster, whether or not the pet will also attack. (Note 1)
+pet_attack_support: yes
+
+// When the master receives damage from the monster, whether or not the pet attacks back. (Note 1)
+pet_damage_support: yes
+
+// Whether or not the pet's will use skills. (Note 1)
+// Note: Offensive pet skills need at least pet_attack_support or 
+// pet_damage_support to work (they trigger while the pet is attacking).
+pet_status_support: yes
+
+
+// PLAYER CONF
+
+// The amount of HP a player will respawn with, 0 is default.
+// (Unit is in percentage of total HP, 100 is full heal of HP, 0 is respawn with 1HP total.)
+restart_hp_rate: 5
+
+// The amount of SP a player will respawn with, 0 is default.
+// (Unit is in percentage of total SP, 100 is full heal of SP, 0 is respawn with 1SP total.)
+restart_sp_rate: 5
+
+// When should the server prevent a player from logging out? Have no effect if prevent_logout is disabled. (Note 3)
+// Official servers prevent players from logging out after attacking, casting skills, and taking damage.
+// 0 = Players can always logout
+// 1 = Prevent logout on login
+// 2 = Prevent logout after attacking
+// 4 = Prevent logout after casting skill
+// 8 = Prevent logout after being hit
+prevent_logout_trigger: 15
+
+// Display the drained hp/sp values from normal attacks? (Ie: Hunter Fly card)
+show_hp_sp_drain: yes
+
+// Do mounted (on Peco) characters increase their size?
+// 0 = no
+// 1 = only Normal Classes on Peco have Big Size
+// 2 = only Baby Classes on Peco have Medium Size
+// 3 = both Normal Classes on Peco have Big Size
+//	and Baby Classes on Peco have Medium Size
+character_size: 3
+
+// Idle characters can receive autoloot?
+// Set to the time in seconds where an idle character will stop receiving
+// items from Autoloot (0: disabled).
+idle_no_autoloot: 300
+
+// Minimum distance a vending/chat room must be from a NPC in order to be placed.
+// Default: 3 (0: disabled).
+min_npc_vendchat_distance: 3
+ 
+// How much should rental mounts increase a player's movement speed?
+// Default is 25. 100 = 100% Increase.
+rental_mount_speed_boost: 30
+
+// Revive dead player while warping? (Note 1)
+revive_onwarp: no
+
+//===================================
+// VIP system
+//===================================
+// Base experience rate increase. Setting to 0 will disable. (Note 2)
+// Default: 50
+vip_base_exp_increase: 50
+
+// Job experience rate increase. Setting to 0 will disable. (Note 2)
+// Default: 50
+vip_job_exp_increase: 50
+
+// Item drop increase. Setting to 0 will disable.
+// Note: 50 = 50% item_drop increase.
+// For item_rate = 200: 200 * 50 / 100 = 100 bonus rate added to the 200 base giving total rate of 300.
+// Default: 50
+vip_drop_increase: 50
+
+// Battle Manual experience increase. Setting to 0 will disable.
+// - Regular/Thick Battle Manual: 50+(50/X) = 75%
+// - HE Battle Manual: 100+(100/X) = 150%
+// - Battle Manual x3: 200+(200/X) = 300%
+// Note: X is the config value.
+// Default: 2
+vip_bm_increase: 2
+
+// Will display rate information (EXP, Drop, and Death penalty message)? (Note 1)
+vip_disp_rate: no
+
+// Gemstone requirement.
+// Can the VIP Group ignore Gemstone requirement for skills?
+// 0 = Disable
+// 1 = Behave like Mistress Card
+// 2 = Remove all gemstone requirements (default)
+vip_gemstone: 2
+
+
+// SKILL CONF
+
+// When cloaking, Whether the wall is checked or not. (Note 1)
+// Note: When the skill does not checks for walls, you will always be considered
+//  as if you had a wall-next to you (you always get the wall-based speed). 
+//  Add the settings as required, being hit always uncloaks you.
+// 
+// 0 = doesn't check for walls
+// 1 = Check for walls
+// 2 = Cloaking is not cancelled when attacking.
+// 4 = Cloaking is not cancelled when using skills
+player_cloak_check_type: 2
+monster_cloak_check_type: 4
+
+// Max Level Difference for Devotion
+devotion_level_difference: 174
+
+// Emergency Recall Guild Skill setting (add as appropriate).
+// Note that for the skill to be usable at all, 
+// you need at least one of 1/2 and 4/8
+// 1: Skill is usable outside of woe.
+// 2: Skill is usable during woe.
+// 4: Skill is usable outside of GvG grounds
+// 8: Skill is usable on GvG grounds
+//16: Disable skill from "nowarpto" maps
+//    (it will work on GVG castles even if they are set to nowarpto, though)
+emergency_call: 31
+
+// Guild Aura Skills setting (add as appropriate).
+// (This affects GD_LEADERSHIP, GD_GLORYWOUNDS, GD_SOULCOLD and GD_HAWKEYES)
+// Note that for the skill to be usable at all, 
+// you need at least one of 1/2 and 4/8
+// 1: Skill works outside of woe.
+// 2: Skill works during woe.
+// 4: Skill works outside of GvG grounds
+// 8: Skill works on GvG grounds
+//16: Disable skill from affecting Guild Master
+guild_aura: 31
+
+// Allows players to skip menu when casting Teleport level 1
+// Menu contains two options. "Random" and "Cancel"
+skip_teleport_lv1_menu: yes
+
+// Allow use of ES-type magic on players?
+allow_es_magic_player: yes
+
+// Taekwon Mission mob name check
+// iRO Wiki States: If your target is Goblin, any monster called "Goblin" will count toward the mission.
+// 0: Off (default)
+// 1: All 5 of the Goblin monsters will count, regardless of Mob ID (Mob ID: 1122-1126) - iRO default
+// 2: Any monster with the same exact name will count, regardless of Mob ID - Comparison based off of jName
+taekwon_mission_mobname: 1
+
+// For RENEWAL_CAST (Note 2)
+// By default skill that has '0' value for Fixed Casting Time will use 20% of cast time
+// as Fixed Casting Time, and the rest (80%) as Variable Casting Time.
+// Put it 0 to disable default Fixed Casting Time (just like -1 is the skill_cast_db.txt).
+default_fixed_castrate: 0
+
+
+// STATUS CONF
+
+// Will certain skill status-changes be removed on logout?
+// This mimics official servers, where Extremity Fist's no SP regen,
+// Strip Equipment, and some other buffs are removed when you logout. Setting is:
+// 0 = remove nothing.
+// 1 = remove negative buffs (stripping, EF)
+// 2 = remove positive buffs (maximize power, steel body...)
+// 3 = remove both negative and positive buffs.
+debuff_on_logout: 0
